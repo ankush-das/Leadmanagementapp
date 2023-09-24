@@ -43,11 +43,10 @@ public class DomainUserService {
 
     }
 
-    public User save(String username, String password, String role) {
+    public User save(String name, String password, String role) {
 
         User user = new User();
-
-        user.setName(username);
+        user.setName(name);
 
         user.setRole(role);
 

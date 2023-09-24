@@ -2,8 +2,6 @@ package com.talentsprint.cycleshop.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import org.springframework.stereotype.Controller;
-
 import org.springframework.ui.Model;
 
 import org.springframework.validation.BindingResult;
@@ -15,14 +13,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import org.springframework.web.bind.annotation.RequestMapping;
-
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.talentsprint.cycleshop.service.DomainUserService;
 import com.talentsprint.cycleshop.service.RegistrationForm;
 
-@Controller
-
+@RestController
 @RequestMapping("/api/cycle")
 
 public class RegistrationController {
@@ -36,13 +33,9 @@ public class RegistrationController {
     public String getRegistrationForm(Model model) {
 
         if (!model.containsAttribute("registrationForm")) {
-
             model.addAttribute("registrationForm", new RegistrationForm());
-
         }
-
         return "register";
-
     }
 
     @PostMapping("/register")
@@ -53,7 +46,7 @@ public class RegistrationController {
 
             RedirectAttributes attr) {
 
-        System.out.println("id:" + registrationForm.getUsername());
+        System.out.println("id:" + registrationForm.getName());
 
         System.out.println("id:" + registrationForm.getPassword());
 
@@ -62,13 +55,9 @@ public class RegistrationController {
         System.out.println("id:" + registrationForm.getRole());
 
         if (bindingResult.hasErrors()) {
-
             attr.addFlashAttribute("org.springframework.validation.BindingResult.registrationForm", bindingResult);
-
             attr.addFlashAttribute("registrationForm", registrationForm);
-
             return "redirect:/register";
-
         }
 
         if (!registrationForm.isValid()) {
@@ -81,7 +70,7 @@ public class RegistrationController {
 
         }
 
-        System.out.println(domainUserService.save(registrationForm.getUsername(), registrationForm.getPassword(),
+        System.out.println(domainUserService.save(registrationForm.getName(), registrationForm.getPassword(),
                 registrationForm.getRole()));
 
         attr.addFlashAttribute("result", "Registration success!");

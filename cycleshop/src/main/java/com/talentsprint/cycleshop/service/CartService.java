@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.talentsprint.cycleshop.entity.Cart;
+import com.talentsprint.cycleshop.entity.Transaction;
 import com.talentsprint.cycleshop.repository.CartRepository;
 
 @Service
@@ -19,6 +20,9 @@ public class CartService {
 
     @Autowired
     private CartRepository cartRepository;
+
+    @Autowired
+    private OrderItemService orderItemService;
 
     public Cart addToCart(int count, long brandId, String username) {
 
@@ -49,20 +53,43 @@ public class CartService {
         return cycleList;
     }
 
-    public void markCartItemsAsBooked(long userId) {
+    public void markCartItemsAsBooked(long userId, Transaction transaction) {
 
         List<Cart> cartItemsToRent = cartRepository.findByUser_IdAndBookedFalse(userId);
 
         for (Cart cartItem : cartItemsToRent) {
 
             cartItem.setBooked(true);
-            cycleService.borrowCycle(cartItem.getCycle().getId(), cartItem.getQuantity());
+            cycleService.borrowCycle(cartItem.getCycle().getId(),
+                    cartItem.getQuantity());
 
             cartRepository.save(cartItem);
 
         }
 
     }
+
+    // public void markCartItemsAsBooked(long userId, Transaction transaction) {
+
+    // List<Cart> cartItemsToRent =
+    // cartRepository.findByUser_IdAndBookedFalse(userId);
+
+    // for (Cart cartItem : cartItemsToRent) {
+
+    // cartItem.setBooked(true);
+
+    // cycleService.borrowCycle(cartItem.getCycle().getId(),
+    // cartItem.getQuantity());
+
+    // cartRepository.save(cartItem);
+
+    // // long lastCartId = cartRepository.findTopByOrderByIdDesc().getId();
+
+    // orderItemService.createOrder(cartItem, transaction);
+
+    // }
+
+    // }
 
     public void returnCycle(long cartId) {
 
@@ -103,13 +130,12 @@ public class CartService {
     public void reduceCartItem(long cartItemId) {
 
         Cart cart = cartRepository.findById(cartItemId);
-
+        System.out.println("quantity---------------" + cart.getQuantity());
         cart.setQuantity(cart.getQuantity() - 1);
-
+        System.out.println(cart.getQuantity());
+        cartRepository.save(cart);
         if (cart.getQuantity() == 0) {
-
             removeCartItem(cartItemId);
-
         }
 
     }

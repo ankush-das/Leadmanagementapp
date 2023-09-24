@@ -8,23 +8,18 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.talentsprint.cycleshop.business.LoginBody;
 import com.talentsprint.cycleshop.dto.CycleJsonInputIdCount;
 import com.talentsprint.cycleshop.entity.Cart;
 import com.talentsprint.cycleshop.entity.Cycle;
-import com.talentsprint.cycleshop.entity.User;
 import com.talentsprint.cycleshop.exception.CycleNotFoundException;
-import com.talentsprint.cycleshop.exception.InsufficientStockException;
 import com.talentsprint.cycleshop.service.CartService;
 import com.talentsprint.cycleshop.service.CycleService;
 import com.talentsprint.cycleshop.service.DomainUserService;
@@ -37,25 +32,29 @@ import com.talentsprint.cycleshop.service.UserService;
 @RequestMapping("/api/cycles")
 public class CycleRestController {
 
-    private LoginBody loginBody;
-
-    @Autowired
     private CycleService cycleService;
 
-    @Autowired
     private UserService userService;
 
-    @Autowired
     private RegistrationForm registrationForm;
 
-    @Autowired
     private DomainUserService domainUserService;
 
-    @Autowired
     private CartService cartService;
 
-    @Autowired
     private TransactionService transactionService;
+
+    public CycleRestController(@Autowired UserService userService, TransactionService transactionService,
+            CartService cartService, CycleService cycleService, RegistrationForm registrationForm,
+            DomainUserService domainUserService) {
+
+        this.userService = userService;
+        this.transactionService = transactionService;
+        this.cartService = cartService;
+        this.cycleService = cycleService;
+        this.registrationForm = registrationForm;
+        this.domainUserService = domainUserService;
+    }
 
     // @PostMapping("/{id}/borrow")
     // public ResponseEntity<String> borrowCycle(@RequestBody CycleJsonInputIdCount
@@ -131,7 +130,7 @@ public class CycleRestController {
     public ResponseEntity<String> registerUser(@RequestBody RegistrationForm registrationForm) {
 
         try {
-            String username = registrationForm.getUsername();
+            String username = registrationForm.getName();
             String password = registrationForm.getPassword();
 
             // Check if the username and password are both "admin"
@@ -141,27 +140,20 @@ public class CycleRestController {
                 registrationForm.setRole("USER");
             }
 
-            if (domainUserService.getByName(registrationForm.getUsername()) == null) {
+            if (domainUserService.getByName(registrationForm.getName()) == null) {
 
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Username already exists");
 
             }
-
             if (!registrationForm.getPassword().equals(registrationForm.getRepeatPassword())) {
-
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Password doesnot match");
-
             }
-
-            System.out.println(domainUserService.save(registrationForm.getUsername(), registrationForm.getPassword(),
+            System.out.println(domainUserService.save(registrationForm.getName(), registrationForm.getPassword(),
                     registrationForm.getRole()));
 
             return ResponseEntity.ok("User registered successfully");
-
         } catch (Exception e) {
-
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Registration failed: " + e.getMessage());
-
         }
 
     }
@@ -231,7 +223,7 @@ public class CycleRestController {
 
         String action = requestData.get("action");
 
-        System.out.println(action);
+        System.out.println("cart id: " + cartId + ", action: " + action);
 
         if (action.equals("remove")) {
 

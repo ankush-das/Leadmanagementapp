@@ -21,7 +21,7 @@ import com.talentsprint.cycleshop.business.LoginBody;
 import com.talentsprint.cycleshop.business.Token;
 
 @RestController
-@CrossOrigin(origins = "*")
+@CrossOrigin
 @RequestMapping("/api/auth")
 public class APIAuthController {
 
@@ -30,6 +30,8 @@ public class APIAuthController {
 
   @Autowired
   AuthenticationManager authenticationManager;
+
+  String userRole = "admin";
 
   @PostMapping("/token")
 
@@ -71,6 +73,8 @@ public class APIAuthController {
         .subject(authentication.getName())
 
         .claim("scope", scope)
+
+        .claim("userRole", userRole)
 
         .build();
 

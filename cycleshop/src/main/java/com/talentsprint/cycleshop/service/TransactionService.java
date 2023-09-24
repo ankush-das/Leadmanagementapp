@@ -67,24 +67,18 @@ public class TransactionService {
 
     public void rentCycles(String userName, double totalAmount) {
 
-        cartService.markCartItemsAsBooked(userService.getByName(userName).get().getId());
-
         Transaction transaction = new Transaction();
-
         transaction.setUser(userService.getByName(userName).get());
-
         transaction.setTotalAmount(totalAmount);
-
         transaction.setRemainingAmount(0);
-
         transaction.setReturned(false);
 
         LocalDateTime currentDateTime = LocalDateTime.now();
-
         transaction.setRentalStartTime(currentDateTime);
 
         transactionRepository.save(transaction);
 
+        cartService.markCartItemsAsBooked(userService.getByName(userName).get().getId(), transaction);
     }
 
 }

@@ -17,19 +17,20 @@ public class User {
 	private String password;
 	private String role;
 
-	public String getName() {
-		// TODO Auto-generated method stub
-		return this.name;
-	}
+	// public String getName() {
+	// return this.name;
+	// }
 
-	public String getPassword() {
-		// TODO Auto-generated method stub
-		return this.password;
-	}
+	// public String getPassword() {
+	// return this.password;
+	// }
 
-	public String getRole() {
-		// TODO Auto-generated method stub
-		return this.role;
-	}
+	// public String getRole() {
+	// return this.role;
+	// }
+
+	// public void setName(String username) {
+	// this.
+	// }
 
 }
