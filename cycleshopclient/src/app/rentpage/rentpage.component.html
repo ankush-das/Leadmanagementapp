@@ -16,7 +16,7 @@
                     <tr>
                         <th scope="col">ID</th>
                         <th scope="col">Brand</th>
-                        <th scope="col">Stock</th>
+                        <th scope="col">Available</th>
                         <th scope="col">Price</th>
                         <!-- <th scope="col">Borrowed</th> -->
                         <th scope="col">Quantity</th>
@@ -27,7 +27,7 @@
                     <tr *ngFor="let cycle of newdata">
                         <th scope="row">{{ cycle.id }}</th>
                         <td>{{ cycle.brand }}</td>
-                        <td>{{ cycle.stock }}</td>
+                        <td>{{ cycle.numAvailable }}</td>
                         <td>₹{{ cycle.price }}</td>
                         <td>
                             <div class="input-container">

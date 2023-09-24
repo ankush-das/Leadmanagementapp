@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import { AuthService } from '../AuthService';
 import { Router } from '@angular/router';
+import { AuthService } from '../AuthService';
+import { User } from '../user';
+import { catchError } from 'rxjs';
 
 @Component({
   selector: 'app-loginpage',
@@ -9,23 +11,25 @@ import { Router } from '@angular/router';
 })
 export class LoginpageComponent {
 
-  username: string = '';
-  password: string = '';
-
   constructor(private authService: AuthService, private router: Router) { }
+  user: User = {
+    username: '',
+    password: ''
+  };
 
   login(): void {
-    this.authService.login(this.username, this.password).subscribe(
-      (response) => {
-        const token = response.token; // Assuming the token is returned as part of the response
-        this.authService.setToken(token);
-
-        // Redirect to the "/home" page
-        this.router.navigate(['/home']);
-      },
-      (error) => {
+    this.authService.login(this.user).pipe(
+      catchError((error) => {
         console.error('Login failed:', error);
-      }
-    );
+        throw error;
+      })
+    ).subscribe((response) => {
+      const token = response.token;
+      this.authService.setToken(token);
+
+      const userRole = response.userRole;
+      this.authService.setUserRole(userRole);
+      this.router.navigate(['/home']);
+    });
   }
 }

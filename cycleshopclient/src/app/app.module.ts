@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -15,6 +16,8 @@ import { RentpageComponent } from './rentpage/rentpage.component';
 import { RegisterpageComponent } from './registerpage/registerpage.component';
 import { LoginpageComponent } from './loginpage/loginpage.component';
 import { CartpageComponent } from './cartpage/cartpage.component';
+import { HttpInterceptorService } from './shared/HttpInterceptorService';
+
 
 @NgModule({
   declarations: [
@@ -34,7 +37,7 @@ import { CartpageComponent } from './cartpage/cartpage.component';
     HttpClientModule,
     FormsModule
   ],
-  providers: [],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -38,11 +38,7 @@ export class ReturnpageComponent {
 
     const url = `http://localhost:8080/api/cycles/return`;
 
-    const headers = new HttpHeaders({
-      'Authorization': 'Bearer ' + localStorage.getItem('token')
-    });
-
-    this._http.post(url, requestBody, { headers, responseType: 'text' }).subscribe(response => {
+    this._http.post(url, requestBody, { responseType: 'text' }).subscribe(response => {
       this.ngOnInit();
       console.log(`Cycle with ID ${id} returned successfully.`);
     });

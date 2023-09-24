@@ -15,7 +15,7 @@ export class RestockpageComponent {
 
   newdata: any;
 
-  constructor(private _http: HttpClient) { } // Inject HttpClient
+  constructor(private _http: HttpClient) { }
 
   submitForm() {
     const cycleData = {
@@ -26,11 +26,7 @@ export class RestockpageComponent {
     const id = this.cycleid;
     const url = `http://localhost:8080/api/cycles/${id}/restock`;
 
-    const headers = new HttpHeaders({
-      'Authorization': 'Bearer ' + localStorage.getItem('token')
-    });
-
-    this._http.post(url, cycleData, { headers, responseType: 'text' }).subscribe({
+    this._http.post(url, cycleData, { responseType: 'text' }).subscribe({
       next: (response) => {
         console.log('Cycle restocked successfully:', response);
       },
@@ -50,12 +46,7 @@ export class RestockpageComponent {
     const url = `http://localhost:8080/api/cycles/addcycle`;
 
 
-    const headers = new HttpHeaders({
-      'Authorization': 'Bearer ' + localStorage.getItem('token')
-    });
-
-
-    this._http.post(url, newcycleData, { headers, responseType: 'text' }).subscribe({
+    this._http.post(url, newcycleData, { responseType: 'text' }).subscribe({
       next: (response) => {
         console.log('Cycle restocked successfully:', response);
       },

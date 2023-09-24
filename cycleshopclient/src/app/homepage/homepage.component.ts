@@ -21,12 +21,12 @@ export class HomepageComponent {
 
   //getting list of cycle data from this endpoint
   getallcycle() {
-    const headers = new HttpHeaders({
+    // const headers = new HttpHeaders({
 
-      'Authorization': 'Bearer ' + localStorage.getItem('token')
+    //   'Authorization': 'Bearer ' + localStorage.getItem('token')
 
-    });
-    return this._http.get('http://localhost:8080/api/cycles/list-data', { headers: headers });
+    // });
+    return this._http.get('http://localhost:8080/api/cycles/list-data');
   }
 
   //show data immidiatly on load

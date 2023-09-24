@@ -24,7 +24,7 @@
 
         <div *ngFor="let item of newdata" class="product">
             <div class="product-image">
-                <img src="https://images.unsplash.com/photo-1570865116909-d358c47f1806?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                <img src="https://img.freepik.com/free-vector/cute-pink-bicycle-isolated_1284-43044.jpg?w=740&t=st=1695201764~exp=1695202364~hmac=1099a9dff3ab4d88e5db899df44d6740394c36af193d27264515862ecada74bc"
                     alt="pic" />
             </div>
             <div class="product-details">
@@ -35,10 +35,10 @@
                 {{ item.quantity }}
             </div>
             <div class="product-removal">
-                <button class="remove-product" (click)="removeFromCart(item.cycle.id,'reduce')">
+                <button class="remove-product" (click)="removeFromCart(item.id,'reduce')">
                     Reduce
                 </button>
-                <button class="remove-product" (click)="removeFromCart(item.cycle.id,'remove')">
+                <button class="remove-product" (click)="removeFromCart(item.id,'remove')">
                     Remove
                 </button>
             </div>

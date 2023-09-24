@@ -17,7 +17,8 @@ export class RegisterpageComponent {
 
     const userData = {
       name: this.username,
-      password: ''
+      password: this.userpassword,
+      repeatPassword: this.confirmPassword
     };
 
     const url = `http://localhost:8080/api/cycles/register`;

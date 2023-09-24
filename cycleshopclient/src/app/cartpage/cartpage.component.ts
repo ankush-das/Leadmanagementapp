@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 
 interface CycleData {
+  id: number;
   cycle: {
     id: number;
     brand: string;
@@ -65,11 +66,7 @@ export class CartpageComponent {
       totalAmount: grandTotal,
     };
 
-    const headers = new HttpHeaders({
-      'Authorization': 'Bearer ' + localStorage.getItem('token')
-    });
-
-    this._http.post('http://localhost:8080/api/cycles/checkOut', postData, { headers }).subscribe(
+    this._http.post('http://localhost:8080/api/cycles/checkOut', postData).subscribe(
       (response) => {
         this.subtotal = 0;
         this.grandTotal = 0;
@@ -82,17 +79,14 @@ export class CartpageComponent {
     );
   }
 
-  removeFromCartserve(cartId: number, action: 'remove' | 'reduce') {
+  removeFromCartserve(cartId: number, action: string) {
     const requestData = {
       cartId: cartId.toString(),
       action: action
     };
-    const headers = new HttpHeaders({
-      'Authorization': 'Bearer ' + localStorage.getItem('token')
-    });
 
-    console.log(requestData);
-    return this._http.post<string>(`http://localhost:8080/api/cycles/cart/remove`, requestData, { headers: headers });
+    this.ngOnInit();
+    return this._http.post<string>(`http://localhost:8080/api/cycles/cart/remove`, requestData);
   }
 
   removeFromCart(cartId: number, action: 'remove' | 'reduce') {
@@ -100,9 +94,11 @@ export class CartpageComponent {
       response => {
         if (action === 'remove') {
           console.log('Cycle removed from cart successfully', response);
+          this.ngOnInit();
         } else if (action === 'reduce') {
           console.log('Cycle quantity reduced in cart successfully', response);
         }
+
       },
       error => {
         console.error('Error removing/reducing cycle from cart', error);

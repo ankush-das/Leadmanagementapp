@@ -14,11 +14,7 @@ export class RentpageComponent {
   constructor(private _http: HttpClient, private head: AuthService) { }
 
   getallcycle() {
-    const headers = new HttpHeaders({
-      'Authorization': 'Bearer ' + localStorage.getItem('token')
-    });
-
-    return this._http.get('http://localhost:8080/api/cycles/list-data', { headers: headers });
+    return this._http.get('http://localhost:8080/api/cycles/list-data');
   }
 
   ngOnInit() {
@@ -33,18 +29,14 @@ export class RentpageComponent {
     });
   }
 
+  //send cycles to cart page
   borrowCycle(id: number, quantityToBorrow: number) {
 
     const requestBody = { id, count: quantityToBorrow };
 
     const url = `http://localhost:8080/api/cycles/${id}/cart`;
 
-    const headers = new HttpHeaders({
-      'Authorization': 'Bearer ' + localStorage.getItem('token')
-    });
-
-
-    this._http.post(url, requestBody, { headers: headers, responseType: 'text' }).subscribe(response => {
+    this._http.post(url, requestBody, { responseType: 'text' }).subscribe(response => {
       this.ngOnInit();
       console.log(`Cycle with ID ${id} rented successfully.`);
     });
