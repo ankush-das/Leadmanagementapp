@@ -1,0 +1,44 @@
+{
+    "products": [
+        {
+            "id": 1,
+            "name": "Product 1",
+            "section": "Electronics",
+            "price": 99.99,
+            "stock": 4,
+            "quantity": 0
+        },
+        {
+            "id": 2,
+            "name": "Product 2",
+            "section": "Clothing",
+            "price": 49.95,
+            "stock": 4,
+            "quantity": 0
+        },
+        {
+            "id": 3,
+            "name": "Product 3",
+            "section": "Home and Garden",
+            "price": 149.99,
+            "stock": 4,
+            "quantity": 0
+        },
+        {
+            "id": 4,
+            "name": "Product 4",
+            "section": "Electronics",
+            "price": 199.99,
+            "stock": 4,
+            "quantity": 0
+        },
+        {
+            "id": 5,
+            "name": "Product 5",
+            "section": "Clothing",
+            "price": 29.99,
+            "stock": 4,
+            "quantity": 0
+        }
+    ]
+}

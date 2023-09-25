@@ -1,0 +1,53 @@
+<h1>Products in Section {{ productId }}</h1>
+
+<button (click)="closeCart()" [disabled]="cartClosed">
+    Close Door
+</button>
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Section</th>
+            <th>Price</th>
+            <th>Stock</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let product of filteredProducts">
+            <td>{{ product.id }}</td>
+            <td>{{ product.name }}</td>
+            <td>{{ product.section }}</td>
+            <td>{{ product.price }}</td>
+            <td>{{ product.stock }}</td>
+            <td>
+                <button (click)="addToCart(product)" [disabled]="cartClosed">
+                    Add to Cart
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+
+<h2>Products in Your Cart for Section {{ sectionName }}</h2>
+<table class="cart-table">
+    <thead>
+        <tr>
+            <th>Product Name</th>
+            <th>Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of sectionCart">
+            <td>{{ item.name }}</td>
+            <td>{{ item.price | currency:'INR':true }}</td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="total-amount">
+    <strong>Total Amount:</strong> {{ getTotalAmount() | currency:'INR':true }}
+</div>

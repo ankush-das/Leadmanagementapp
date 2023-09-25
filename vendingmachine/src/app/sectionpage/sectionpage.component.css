@@ -1,0 +1,41 @@
+/* Style the table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+/* Style the table header */
+th {
+    background-color: #f2f2f2;
+    text-align: left;
+    padding: 8px;
+    font-weight: bold;
+}
+
+/* Style the table rows */
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+/* Style the table cells */
+td {
+    padding: 8px;
+}
+
+/* Style the table header cells */
+th,
+td {
+    border: 1px solid #dddddd;
+}
+
+/* Add some spacing to the header cells */
+th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+
+/* Center align text in the Section column */
+td:nth-child(3) {
+    text-align: center;
+}
