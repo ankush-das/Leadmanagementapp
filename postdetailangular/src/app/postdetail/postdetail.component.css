@@ -1,0 +1,28 @@
+/* styles.css (or your component-specific CSS file) */
+.post-details {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 20px;
+}
+
+.post-header {
+    margin-bottom: 10px;
+}
+
+.post-content h2 {
+    font-size: 24px;
+    margin-top: 10px;
+}
+
+.comments {
+    margin-top: 20px;
+}
+
+.comment {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #f9f9f9;
+}

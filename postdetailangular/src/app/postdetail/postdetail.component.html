@@ -1,0 +1,33 @@
+<div *ngIf="postDto" class="post-details">
+    <h1>Post Details</h1>
+    <div class="post-header">
+        <p><strong>Author:</strong> {{ postDto.post.author.name }}</p>
+        <p><strong>Timestamp:</strong> {{ postDto.post.updatedAt | date:'medium' }}</p>
+    </div>
+    <div class="post-content">
+        <h2>{{ postDto.post.title }}</h2>
+        <p>{{ postDto.post.content }}</p>
+    </div>
+    <div class="like-section">
+        <button>Like</button>
+        <p><strong>Likes:</strong>5</p>
+    </div>
+
+    <form [formGroup]="commentForm">
+        <textarea formControlName="commentText" (input)="onCommentInputChange($event)"></textarea>
+        <button type="button" (click)="submitComment()">Comment</button>
+    </form>
+
+    <ul *ngIf="showUserSuggestions">
+        <li *ngFor="let user of userSuggestions">
+            <button (click)="insertSuggestion(user)">{{ user.name }}</button>
+        </li>
+    </ul>
+
+    <div class="comments">
+        <h3>Comments</h3>
+        <div *ngFor="let comment of postDto.commentList" class="comment">
+            <p>{{ comment.content }}</p>
+        </div>
+    </div>
+</div>
