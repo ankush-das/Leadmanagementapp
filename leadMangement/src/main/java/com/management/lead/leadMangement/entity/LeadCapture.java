@@ -21,7 +21,7 @@ public class LeadCapture {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private long id;
 
     @NotBlank
     private String name;

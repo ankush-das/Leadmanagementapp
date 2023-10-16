@@ -54,14 +54,17 @@ public class LeadService {
         leadCapture.setEmail(leadCaptureDTO.getEmail());
         leadCapture.setPhone(leadCaptureDTO.getPhone());
         leadCapture.setCreatedDate(new Date());
+
         // Save the lead capture record to the database
         leadCapture = leadCaptureRepository.save(leadCapture);
+        // String leadId = String.valueOf(leadCapture.getId());
+        // String baseUrl = "http://localhost:4200/";
 
-        Long id = leadCaptureRepository.findIdByEmail(leadCaptureDTO.getEmail()); // Replace with your repository method
-        System.out.println(id + "going.................");
-        // Send an email to the captured lead
+        // String message = "Please fill out the contact details at link" + baseUrl +
+        // leadId;
+        // // Send an email to the captured lead
         // sendEmailToLead(leadCaptureDTO.getEmail(), "Thank you for your interest",
-        // "Your message goes here");
+        // message);
 
         return leadCapture;
     }
