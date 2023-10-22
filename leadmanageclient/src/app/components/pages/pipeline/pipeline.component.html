@@ -1,0 +1,272 @@
+<app-navbar></app-navbar>
+
+<div class="row height d-flex justify-content-center align-items-center">
+    <div class="col-md-8">
+        <div class="search">
+            <input type="text" [(ngModel)]="searchTerm" placeholder="Search" class="form-control search-bar">
+            <button class="btn btn-primary" (click)="searchLeadsBySource()">Search</button>
+        </div>
+    </div>
+</div>
+<div class="lead-pipeline">
+    <div class="d-flex">
+
+        <!-- NEW stage  -->
+        <div class="col-4">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    NEW
+                </div>
+                <ul class="list-group list-group-flush">
+                    <div *ngFor="let lead of leads">
+                        <div class="lead-card" *ngIf="lead.stage === 'NEW'" [routerLink]="['/leaddetail', lead.id]">
+                            <div class="lead-header">
+                                <h5>{{lead.quote}}</h5>
+                            </div>
+                            <div class="lead-body">
+                                <p>₹ {{lead.budget}}</p>
+                                <p class="badge bg-primary text-dark">{{lead.tag}}</p>
+                                <div style="display: flex; justify-content: space-between;">
+                                    <div>
+                                        <div>
+                                            <fa-icon *ngFor="let star of generateStars(lead.priority)"
+                                                [icon]="star.icon" [class]="star.starClass"></fa-icon>
+                                            <fa-icon style="margin-left: 10px;" [icon]="faClock" data-bs-toggle="modal"
+                                                data-bs-target="#exampleModal"></fa-icon>
+                                        </div>
+                                        <div>
+                                            <fa-icon [icon]="faLeftLong"
+                                                (click)="onTransitionPrev($event,lead.id)"></fa-icon>
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <p>{{lead.assignedUser.name}}</p>
+                                        <fa-icon [icon]="faRightLong"
+                                            (click)="onTransitionNext($event,lead.id)"></fa-icon>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ul>
+
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+
+                            <div class="modal-body">
+
+                                <form #activityForm="ngForm" (ngSubmit)="submitForm()">
+
+                                    <div class="form-group">
+                                        <label for="activityType">Activity Type</label>
+                                        <input type="text" id="activityType" name="activityType" class="form-control"
+                                            [(ngModel)]="activity.activityType" required>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="dueDate">Due Date</label>
+                                        <input type="date" id="dueDate" name="dueDate" class="form-control"
+                                            [(ngModel)]="activity.dueDate">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="summary">Summary</label>
+                                        <input type="text" id="summary" name="summary" class="form-control"
+                                            [(ngModel)]="activity.summary" required>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="detail">Detail</label>
+                                        <input type="text" id="detail" name="detail" class="form-control"
+                                            [(ngModel)]="activity.detail" required>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="activityStatus">Activity Status</label>
+                                        <select id="activityStatus" name="activityStatus" class="form-control"
+                                            [(ngModel)]="activity.activityStatus">
+                                            <option value="PENDING">Pending</option>
+                                            <option value="COMPLETED">Completed</option>
+                                            <option value="CANCELLED">Cancelled</option>
+                                        </select>
+                                    </div>
+
+                                    <!-- You may need to populate the assignedUser field with a list of users from your API -->
+
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </form>
+
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="col-4">
+            <div a class="card">
+                <div class="card-header bg-success text-white">
+                    QUALIFIED
+                </div>
+                <ul class="list-group list-group-flush">
+                    <div *ngFor="let lead of leads">
+                        <div class="lead-card" *ngIf="lead.stage === 'QUALIFIED'"
+                            [routerLink]="['/leaddetail', lead.id]">
+                            <div class="lead-header">
+                                <h5>{{lead.quote}}</h5>
+                            </div>
+                            <div class="lead-body">
+                                <p>₹ {{lead.budget}}</p>
+                                <p class="badge bg-success text-dark">{{lead.tag}}</p>
+                                <div style="display: flex; justify-content: space-between;">
+                                    <div>
+                                        <div>
+                                            <fa-icon *ngFor="let star of generateStars(lead.priority)"
+                                                [icon]="star.icon" [class]="star.starClass"></fa-icon>
+                                            <fa-icon style="margin-left: 10px;" [icon]="faClock" data-bs-toggle="modal"
+                                                data-bs-target="#exampleModal"></fa-icon>
+                                        </div>
+                                        <fa-icon [icon]="faLeftLong"
+                                            (click)="onTransitionPrev($event,lead.id)"></fa-icon>
+                                    </div>
+                                    <div>
+                                        <p>{{lead.assignedUser.name}}</p>
+                                        <fa-icon [icon]="faRightLong"
+                                            (click)="onTransitionNext($event,lead.id)"></fa-icon>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ul>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="card">
+                <div class="card-header bg-info text-white">
+                    PROPOSITION
+                </div>
+                <ul class="list-group list-group-flush">
+                    <div *ngFor="let lead of leads">
+                        <div class="lead-card" *ngIf="lead.stage === 'PROPOSITION'"
+                            [routerLink]="['/leaddetail', lead.id]">
+                            <div class="lead-header">
+                                <h5>{{lead.quote}}</h5>
+                            </div>
+                            <div class="lead-body">
+                                <p>₹ {{lead.budget}}</p>
+                                <p class="badge bg-info text-dark">{{lead.tag}}</p>
+                                <div style="display: flex; justify-content: space-between;">
+                                    <div>
+                                        <div>
+                                            <fa-icon *ngFor="let star of generateStars(lead.priority)"
+                                                [icon]="star.icon" [class]="star.starClass"></fa-icon>
+                                            <fa-icon style="margin-left: 10px;" [icon]="faClock" data-bs-toggle="modal"
+                                                data-bs-target="#exampleModal"></fa-icon>
+                                        </div>
+                                        <fa-icon [icon]="faLeftLong"
+                                            (click)="onTransitionPrev($event,lead.id)"></fa-icon>
+                                    </div>
+                                    <div>
+                                        <p>{{lead.assignedUser.name}}</p>
+                                        <fa-icon [icon]="faRightLong"
+                                            (click)="onTransitionNext($event,lead.id)"></fa-icon>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ul>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="card">
+                <div class="card-header bg-warning text-white">
+                    NEGOTIATION
+                </div>
+                <ul class="list-group list-group-flush">
+                    <div *ngFor="let lead of leads">
+                        <div class="lead-card" *ngIf="lead.stage === 'NEGOTIATION'"
+                            [routerLink]="['/leaddetail', lead.id]">
+                            <div class="lead-header">
+                                <h5>{{lead.quote}}</h5>
+                            </div>
+                            <div class="lead-body">
+                                <p>₹ {{lead.budget}}</p>
+                                <p class="badge bg-warning text-dark">{{lead.tag}}</p>
+                                <div style="display: flex; justify-content: space-between;">
+                                    <div>
+                                        <div>
+                                            <fa-icon *ngFor="let star of generateStars(lead.priority)"
+                                                [icon]="star.icon" [class]="star.starClass"></fa-icon>
+                                            <fa-icon style="margin-left: 10px;" [icon]="faClock" data-bs-toggle="modal"
+                                                data-bs-target="#exampleModal"></fa-icon>
+                                        </div>
+                                        <fa-icon [icon]="faLeftLong"
+                                            (click)="onTransitionPrev($event,lead.id)"></fa-icon>
+                                    </div>
+                                    <div>
+                                        <p>{{lead.assignedUser.name}}</p>
+                                        <fa-icon [icon]="faRightLong"
+                                            (click)="onTransitionNext($event,lead.id)"></fa-icon>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ul>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="card">
+                <div class="card-header bg-success text-white">
+                    WON
+                </div>
+                <ul class="list-group list-group-flush">
+                    <div *ngFor="let lead of leads">
+                        <div class="lead-card" *ngIf="lead.stage === 'WON'" [routerLink]="['/leaddetail', lead.id]">
+                            <div class="lead-header">
+                                <h5>{{lead.quote}}</h5>
+                            </div>
+                            <div class="lead-body">
+                                <p>₹ {{lead.budget}}</p>
+                                <p class="badge bg-success text-dark">{{lead.tag}}</p>
+                                <div style="display: flex; justify-content: space-between;">
+                                    <div>
+                                        <div>
+                                            <div>
+                                                <fa-icon *ngFor="let star of generateStars(lead.priority)"
+                                                    [icon]="star.icon" [class]="star.starClass"></fa-icon>
+                                                <fa-icon style="margin-left: 10px;" [icon]="faClock"
+                                                    data-bs-toggle="modal" data-bs-target="#exampleModal"></fa-icon>
+                                            </div>
+                                        </div> <fa-icon [icon]="faLeftLong"
+                                            (click)="onTransitionPrev($event,lead.id)"></fa-icon>
+                                    </div>
+                                    <div>
+                                        <p>{{lead.assignedUser.name}}</p>
+                                        <fa-icon [icon]="faRightLong"
+                                            (click)="onTransitionNext($event,lead.id)"></fa-icon>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ul>
+            </div>
+        </div>
+    </div>

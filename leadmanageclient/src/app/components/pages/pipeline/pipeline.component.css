@@ -1,0 +1,77 @@
+.row.d-flex {
+    overflow-x: scroll;
+    white-space: nowrap;
+}
+
+.col-4 {
+    flex: 0 0 auto;
+}
+
+.card {
+    margin-right: 15px;
+}
+
+/* lead-card.component.css */
+.lead-card {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    transition: box-shadow 0.2s;
+}
+
+.lead-card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.lead-body {
+    margin-top: 10px;
+}
+
+.lead-body p {
+    margin: 5px 0;
+}
+
+.lead-body p strong {
+    font-weight: bold;
+}
+
+
+.search {
+    position: relative;
+    box-shadow: 0 0 40px rgba(51, 51, 51, .1);
+
+}
+
+.search input {
+    height: 60px;
+    text-indent: 25px;
+    border: 2px solid #d6d4d4;
+}
+
+
+.search input:focus {
+    box-shadow: none;
+    border: 2px solid blue;
+}
+
+.search .fa-search {
+    position: absolute;
+    top: 20px;
+    left: 16px;
+}
+
+.search button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    height: 50px;
+    width: 110px;
+    background: blue;
+}
+
+.star-gold {
+    color: gold;
+}

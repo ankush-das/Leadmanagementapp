@@ -1,0 +1,83 @@
+<app-navbar></app-navbar>
+<div class="container">
+    <div class="card">
+        <div class="card-header">Lead Form</div>
+        <div class="card-body">
+            <form (ngSubmit)="onSubmit()" class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="quote">Quote</label>
+                        <input type="text" id="quote" name="quote" [(ngModel)]="lead.quote" autocomplete="off"
+                            class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="budget">Budget</label>
+                        <input type="number" id="budget" name="budget" autocomplete="off" [(ngModel)]="lead.budget"
+                            class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="probability">Probability</label>
+                        <input type="text" id="probability" name="probability" autocomplete="off"
+                            [(ngModel)]="lead.probability" class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="priority">Priority</label>
+                        <select class="form-control" id="priority" name="priority" autocomplete="off"
+                            [(ngModel)]="lead.priority" required>
+                            <option value="LOW">LOW</option>
+                            <option value="MEDIUM">MEDIUM</option>
+                            <option value="HIGH">HIGH</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="source">Source</label>
+                        <input type="text" id="source" name="source" [(ngModel)]="lead.source" autocomplete="off"
+                            class="form-control">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="tag">Tag</label>
+                        <input type="text" id="tag" name="tag" autocomplete="off" [(ngModel)]="lead.tag"
+                            class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="expectedClosingDate">Expected Closing Date</label>
+                        <input type="date" id="expectedClosingDate" name="expectedClosingDate"
+                            [(ngModel)]="lead.expectedClosingDate" autocomplete="off" class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="stage">Stage</label>
+                        <select class="form-control" id="stage" name="stage" [(ngModel)]="lead.stage">
+                            <option value="NEW">NEW</option>
+                            <option value="QUALIFIED">QUALIFIED</option>
+                            <option value="PROPOSITION">PROPOSITION</option>
+                            <option value="NEGOTIATION">NEGOTIATION</option>
+                            <option value="WON">WON</option>
+                            <option value="CLOSED_LOST">CLOSED_LOST</option>
+                            <option value="CLOSED_WON">CLOSED_WON</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="assignedUser">Assigned User</label>
+                        <select class="form-control" id="assignedUser" name="assignedUser"
+                            [(ngModel)]="lead.assignedUser" required>
+                            <option value="" disabled>Select Assigned User</option>
+                            <option *ngFor="let user of users" [value]="user.id">{{ user.name }}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-12" style="margin-top: 10px;">
+                    <button type="submit" class="btn btn-primary" style="margin-right: 10px;">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

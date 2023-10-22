@@ -1,0 +1,165 @@
+.no-spin-arrows::-webkit-inner-spin-button,
+.no-spin-arrows::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+span {
+    font-size: 15px;
+}
+
+/* CSS */
+.button-23 {
+    background-color: #FFFFFF;
+    border: 1px solid #222222;
+    border-radius: 8px;
+    box-sizing: border-box;
+    color: #222222;
+    cursor: pointer;
+    display: inline-block;
+    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 20px;
+    margin: 0;
+    outline: none;
+    padding: 13px 23px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    touch-action: manipulation;
+    transition: box-shadow .2s, -ms-transform .1s, -webkit-transform .1s, transform .1s;
+    user-select: none;
+    -webkit-user-select: none;
+    width: auto;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.button-23:focus-visible {
+    box-shadow: #222222 0 0 0 2px, rgba(255, 255, 255, 0.8) 0 0 0 4px;
+    transition: box-shadow .2s;
+}
+
+.button-23:active {
+    background-color: #F7F7F7;
+    border-color: #000000;
+    transform: scale(.96);
+}
+
+.button-23:disabled {
+    border-color: #DDDDDD;
+    color: #DDDDDD;
+    cursor: not-allowed;
+    opacity: 1;
+}
+
+/* Styling for the "NEW" stage */
+.new {
+    background-color: #ff5733;
+    /* Choose your preferred color */
+    color: white;
+}
+
+/* Styling for the "QUALIFIED" stage */
+.qualified {
+    background-color: #2ecc71;
+    /* Choose your preferred color */
+    color: white;
+}
+
+/* Styling for the "PROPOSITION" stage */
+.proposition {
+    background-color: #f1c40f;
+    /* Choose your preferred color */
+    color: black;
+}
+
+/* Styling for the "NEGOTIATION" stage */
+.negotiation {
+    background-color: #3498db;
+    /* Choose your preferred color */
+    color: white;
+}
+
+/* Styling for the "WON" stage */
+.won {
+    background-color: #27ae60;
+    /* Choose your preferred color */
+    color: white;
+}
+
+/* Hover effect for all buttons */
+.button-23:hover {
+    background-color: #333;
+    /* Change to your preferred hover color */
+    color: white;
+}
+
+/* Style for input fields when in edit mode */
+input {
+    border: 1px solid #ccc;
+    padding: 8px;
+    font-size: 16px;
+    width: 100%;
+    border-radius: 4px;
+}
+
+/* Style for non-editable elements */
+h4,
+p {
+    cursor: pointer;
+    margin: 0;
+    padding: 8px;
+}
+
+/* Additional styles for the "Probability" and "Tag" elements */
+p span {
+    font-weight: bold;
+    color: #007BFF;
+}
+
+/* Apply styles to the input fields when focused */
+input:focus {
+    outline: none;
+    /* Remove the default outline */
+    border: 1px solid #007BFF;
+    /* Change border color on focus */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+/* Hover effect for non-editable elements */
+h4:hover,
+p:hover {
+    background-color: #f0f0f0;
+    transition: background-color 0.3s;
+}
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+.chat-box {
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 20px auto;
+    background-color: #f9f9f9;
+    box-shadow: 2px 2px 5px #888888;
+    overflow-y: scroll;
+    max-height: 400px;
+}
+
+.message {
+    margin: 10px 0;
+}
+
+.timestamp {
+    color: #999;
+    font-size: 12px;
+}

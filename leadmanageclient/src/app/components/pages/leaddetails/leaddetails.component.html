@@ -1,0 +1,80 @@
+<app-navbar></app-navbar>
+<div class="container d-flex justify-content-between mb-3">
+    <div>
+        <div>
+            <button style="margin-right: 10px;" class="button-23" routerLink="/capturelead">New</button>
+            <button style="margin-right: 10px;" class="button-23" (click)="transitionLeadToLost(lead.id)">Lost</button>
+            <button class="button-23" (click)="closedWONLeadStageTransition(lead.id)">Won</button>
+        </div>
+    </div>
+    <div>
+        <button style="margin-right: 10px;" [ngClass]="{'button-23': true, 'new': lead.stage === 'NEW'}">New</button>
+        <button style="margin-right: 10px;"
+            [ngClass]="{'button-23': true, 'qualified': lead.stage === 'QUALIFIED'}">Qualified</button>
+        <button style="margin-right: 10px;"
+            [ngClass]="{'button-23': true, 'proposition': lead.stage === 'PROPOSITION'}">Proposition</button>
+        <button style="margin-right: 10px;"
+            [ngClass]="{'button-23': true, 'negotiation': lead.stage === 'NEGOTIATION'}">Negotiation</button>
+        <button [ngClass]="{'button-23': true, 'won': lead.stage === 'WON'}">Won</button>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            <div class="card">
+                <div class="card-header">
+                    <h1>Lead Details</h1>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+
+                            <h4 *ngIf="!editMode" (click)="editMode = true">{{ lead.quote }}</h4>
+                            <input type="text" *ngIf="editMode" [(ngModel)]="lead.quote" (keyup.enter)="saveAll()">
+
+                            <p *ngIf="!editMode" (click)="editMode = true">{{ lead.budget |
+                                currency:'INR':'symbol':'1.2-2' }}</p>
+                            <input type="text" *ngIf="editMode" [(ngModel)]="lead.budget" (keyup.enter)="saveAll()">
+
+                            <p>Probability: <span *ngIf="!editMode" (click)="editMode = true">{{
+                                    lead.probability}}%</span>
+                            </p>
+                            <input type="text" *ngIf="editMode" [(ngModel)]="lead.probability"
+                                (keyup.enter)="saveAll()">
+
+                            <p>Tag: <span *ngIf="!editMode" (click)="editMode = true">{{ lead.tag }}</span></p>
+                            <input type="text" *ngIf="editMode" [(ngModel)]="lead.tag" (keyup.enter)="saveAll()">
+                        </div>
+
+                        <div class="col-md-6">
+                            <p>Priority: <span *ngIf="!editMode" (click)="editMode = true">{{ lead.priority }}</span>
+                            </p>
+                            <input type="text" *ngIf="editMode" [(ngModel)]="lead.priority" (keyup.enter)="saveAll()">
+
+                            <p>Stage: <span *ngIf="!editMode" (click)="editMode = true">{{ lead.stage }}</span></p>
+                            <input type="text" *ngIf="editMode" [(ngModel)]="lead.stage" (keyup.enter)="saveAll()">
+
+                            <p>Source: <span *ngIf="!editMode" (click)="editMode = true">{{ lead.source }}</span></p>
+                            <input type="text" *ngIf="editMode" [(ngModel)]="lead.source" (keyup.enter)="saveAll()">
+
+                            <p>SalesPerson: <span *ngIf="!editMode" (click)="editMode = true">
+                                    {{lead.assignedUser.name}}
+                                </span></p>
+                            <input type="text" *ngIf="editMode" [(ngModel)]="lead.assignedUser.name"
+                                (keyup.enter)="saveAll()">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<hr>
+<div class="chat-box" style="height: 400px; overflow-y: auto;">
+    <div class="message" *ngFor="let log of logs">
+        <div class="timestamp">
+            <p><strong>Log Date:</strong> {{ formatTimestamp(log.logDate) }}</p>
+        </div>
+        {{ log.user.username }} performed activity: {{ log.details }}
+    </div>
+</div>

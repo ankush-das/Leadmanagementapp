@@ -1,0 +1,42 @@
+<app-navbar></app-navbar>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Company Name</th>
+            <th>Job Position</th>
+            <th>Address</th>
+            <th>City</th>
+            <th>State</th>
+            <th>Postal Code</th>
+            <th>Region</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let contact of leadContacts">
+            <td>{{ contact.companyName }}</td>
+            <td>{{ contact.jobPosition }}</td>
+            <td>{{ contact.address }}</td>
+            <td>{{ contact.city }}</td>
+            <td>{{ contact.state }}</td>
+            <td>{{ contact.postalCode }}</td>
+            <td>{{ contact.region }}</td>
+            <!-- <td>
+                <button class="btn btn-danger" (click)="onContactButtonClick(contact.id)">Fill Details</button>
+            </td> -->
+
+            <div class="input-group">
+                <button type="button" class="btn btn-outline-secondary">Action</button>
+                <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" (click)="onFillButtonClick(contact.id)" style="cursor: pointer;">Fill
+                            Details</a></li>
+                    <li><a class="dropdown-item" (click)="onEditButtonClick(contact.id)"
+                            style="cursor: pointer;">Edit</a></li>
+                </ul>
+            </div>
+        </tr>
+    </tbody>
+</table>

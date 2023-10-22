@@ -1,0 +1,29 @@
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Lead Capture</h5>
+                    <form (ngSubmit)="onCaptureLead(leadCaptureDTO)" class="form">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="name" [(ngModel)]="leadCaptureDTO.name" required
+                                class="form-control" autocomplete="off">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" [(ngModel)]="leadCaptureDTO.email" required
+                                class="form-control" autocomplete="off">
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone</label>
+                            <input type="text" id="phone" name="phone" [(ngModel)]="leadCaptureDTO.phone" required
+                                class="form-control" autocomplete="off">
+                        </div>
+                        <button type="submit" class="btn btn-primary mt-2">Capture Lead</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
