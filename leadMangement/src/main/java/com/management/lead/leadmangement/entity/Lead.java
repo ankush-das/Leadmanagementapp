@@ -3,8 +3,8 @@ package com.management.lead.leadmangement.entity;
 import java.math.BigDecimal;
 import java.util.Date;
 
-import com.management.lead.leadmangement.enumConstants.LeadPriority;
-import com.management.lead.leadmangement.enumConstants.LeadStage;
+import com.management.lead.leadmangement.enumconstants.LeadPriority;
+import com.management.lead.leadmangement.enumconstants.LeadStage;
 
 import io.micrometer.common.lang.NonNull;
 import jakarta.persistence.CascadeType;

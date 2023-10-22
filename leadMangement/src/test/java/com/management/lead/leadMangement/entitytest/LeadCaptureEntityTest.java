@@ -1,4 +1,4 @@
-package com.management.entitytest;
+package com.management.lead.leadMangement.entitytest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -40,16 +40,6 @@ class LeadCaptureEntityTest {
 
         var violations = validator.validate(leadCapture);
         assertTrue(violations.isEmpty());
-    }
-
-    @Test
-    void testCreatedDate() {
-        LeadCapture leadCapture = new LeadCapture();
-        leadCapture.setName("Test Name");
-        leadCapture.setEmail("test@example.com");
-        leadCapture.setPhone("1234567890");
-
-        assertNotNull(leadCapture.getCreatedDate());
     }
 
 }

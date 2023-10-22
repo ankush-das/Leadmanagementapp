@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.management.lead.leadmangement.dto.ActivityDTO;
+import com.management.lead.leadmangement.entity.ActivityLog;
 import com.management.lead.leadmangement.entity.LeadActivity;
 import com.management.lead.leadmangement.services.ActivityService;
 
@@ -40,6 +41,7 @@ public class LeadActivityController {
 
         try {
             LeadActivity createdActivity = activityService.createActivity(capturedLeadId, activityDTO);
+
             return new ResponseEntity<>(createdActivity, HttpStatus.CREATED);
         } catch (EntityNotFoundException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -53,6 +55,16 @@ public class LeadActivityController {
         try {
             List<LeadActivity> activities = activityService.allActivity(capturedLeadId);
             return new ResponseEntity<>(activities, HttpStatus.OK);
+        } catch (EntityNotFoundException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/log/{capturedLeadId}")
+    public ResponseEntity<List<ActivityLog>> getAllLog(@PathVariable long capturedLeadId) {
+        try {
+            List<ActivityLog> logs = activityService.allLogs(capturedLeadId);
+            return new ResponseEntity<>(logs, HttpStatus.OK);
         } catch (EntityNotFoundException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

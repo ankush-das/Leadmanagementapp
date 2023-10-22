@@ -90,6 +90,12 @@ public class PipelineController {
         return ResponseEntity.ok(lead);
     }
 
+    @PutMapping("/transition/closedwon/{leadId}")
+    public ResponseEntity<Lead> closedWONLeadStageTransition(@PathVariable Long leadId) {
+        Lead lead = pipelineService.closedWONStageChange(leadId); // Assuming a similar method in your service
+        return ResponseEntity.ok(lead);
+    }
+
     // search by company
     @GetMapping("/search/company")
     public List<Lead> searchLeadsByCompanyName(@RequestParam String companyname) {

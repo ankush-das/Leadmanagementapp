@@ -2,37 +2,33 @@ package com.management.lead.leadmangement.dto;
 
 import java.util.Date;
 
+import com.management.lead.leadmangement.enumconstants.ActivityStatus;
+import com.management.lead.leadmangement.enumconstants.ActivityType;
+
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Data
 public class ActivityDTO {
 
-    @NotBlank(message = "Activity type is required")
-    @Size(max = 255, message = "Activity type must be less than 255 characters")
-    private String activityType;
+    @Enumerated(EnumType.STRING)
+    private ActivityType activityType;
+
+    @Enumerated(EnumType.STRING)
+    private ActivityStatus activityStatus;
 
     @Temporal(TemporalType.DATE)
     private Date dueDate;
 
-    @NotBlank(message = "Summary is required")
     @Size(max = 255, message = "Summary must be less than 255 characters")
     private String summary;
 
-    @NotBlank(message = "Detail is required")
+    @Size(max = 255, message = "Summary must be less than 255 characters")
     private String detail;
 
-    @Enumerated(EnumType.STRING)
-    private String activityStatus;
-
-    @ManyToOne
-    @JoinColumn(name = "assigned_user_id")
     private long assignedUser;
 }

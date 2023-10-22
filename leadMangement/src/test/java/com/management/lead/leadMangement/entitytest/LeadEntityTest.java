@@ -1,9 +1,9 @@
-package com.management.entitytest;
+package com.management.lead.leadMangement.entitytest;
 
 import com.management.lead.leadmangement.entity.Lead;
-import com.management.lead.leadmangement.enumConstants.LeadPriority;
-import com.management.lead.leadmangement.enumConstants.LeadStage;
 import com.management.lead.leadmangement.entity.User;
+import com.management.lead.leadmangement.enumconstants.LeadPriority;
+import com.management.lead.leadmangement.enumconstants.LeadStage;
 import com.management.lead.leadmangement.entity.LeadContactInfo;
 import org.junit.jupiter.api.Test;
 import java.math.BigDecimal;

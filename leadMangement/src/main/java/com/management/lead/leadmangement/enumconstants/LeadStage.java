@@ -1,4 +1,4 @@
-package com.management.lead.leadmangement.enumConstants;
+package com.management.lead.leadmangement.enumconstants;
 
 public enum LeadStage {
     NEW,

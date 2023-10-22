@@ -14,8 +14,8 @@ import com.management.lead.leadmangement.entity.Lead;
 import com.management.lead.leadmangement.entity.LeadCapture;
 import com.management.lead.leadmangement.entity.LeadContactInfo;
 import com.management.lead.leadmangement.entity.User;
-import com.management.lead.leadmangement.enumConstants.LeadPriority;
-import com.management.lead.leadmangement.enumConstants.LeadStage;
+import com.management.lead.leadmangement.enumconstants.LeadPriority;
+import com.management.lead.leadmangement.enumconstants.LeadStage;
 import com.management.lead.leadmangement.repository.ActivityLogRepository;
 import com.management.lead.leadmangement.repository.LeadCaptureRepository;
 import com.management.lead.leadmangement.repository.LeadContactInfoRepository;
@@ -213,7 +213,7 @@ public class LeadService {
         activityLog.setUser(assignedUser);
 
         if (loggedInUser.isPresent()) {
-            activityLog.setDetails("Lead has been Created by" + loggedInUser.get().getName() + "and Assigned to "
+            activityLog.setDetails("Lead has been Created by " + loggedInUser.get().getName() + "and Assigned to "
                     + assignedUser.getName());
         }
 

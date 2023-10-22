@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import com.management.lead.leadmangement.entity.Lead;
-import com.management.lead.leadmangement.enumConstants.LeadStage;
+import com.management.lead.leadmangement.enumconstants.LeadStage;
 
 @Repository
 public interface LeadRepo extends JpaRepository<Lead, Long> {

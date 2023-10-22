@@ -11,8 +11,9 @@ import com.management.lead.leadmangement.entity.LeadCapture;
 import com.management.lead.leadmangement.entity.User;
 
 @Repository
-public interface ActivityRepository extends CrudRepository<LeadActivity, Integer> {
+public interface ActivityRepository extends CrudRepository<LeadActivity, Long> {
 
     @Query("SELECT la FROM LeadActivity la WHERE la.assignedUser = :user AND la.lead = :lead")
     List<LeadActivity> findActivitiesByAssignedUserAndLead(User user, LeadCapture lead);
+
 }

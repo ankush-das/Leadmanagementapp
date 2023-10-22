@@ -1,14 +1,23 @@
 package com.management.lead.leadmangement.services;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import com.management.lead.leadmangement.entity.ActivityLog;
 import com.management.lead.leadmangement.entity.Lead;
-import com.management.lead.leadmangement.enumConstants.LeadStage;
+import com.management.lead.leadmangement.entity.LeadCapture;
+import com.management.lead.leadmangement.entity.User;
+import com.management.lead.leadmangement.enumconstants.LeadStage;
 import com.management.lead.leadmangement.exception.InvalidStateException;
+import com.management.lead.leadmangement.exception.LeadNotFoundException;
+import com.management.lead.leadmangement.repository.ActivityLogRepository;
+import com.management.lead.leadmangement.repository.LeadCaptureRepository;
 import com.management.lead.leadmangement.repository.LeadRepo;
 
 import jakarta.persistence.EntityNotFoundException;
@@ -17,9 +26,17 @@ import jakarta.persistence.EntityNotFoundException;
 public class PipelineService {
 
     private LeadRepo leadRepo;
+    private LeadCaptureRepository leadCaptureRepository;
+    private UserService userService;
+    private ActivityLogRepository activityLogRepository;
 
-    public PipelineService(@Autowired LeadRepo leadRepo) {
+    public PipelineService(@Autowired LeadRepo leadRepo, LeadCaptureRepository leadCaptureRepository,
+            UserService userService, ActivityLogRepository activityLogRepository) {
         this.leadRepo = leadRepo;
+        this.leadCaptureRepository = leadCaptureRepository;
+        this.userService = userService;
+        this.activityLogRepository = activityLogRepository;
+
     }
 
     public List<Lead> findByStage(LeadStage stage) {
@@ -132,7 +149,14 @@ public class PipelineService {
     }
 
     public Lead nextstageChange(Long leadId) {
+        // capture lead
         Optional<Lead> leadOptional = leadRepo.findById(leadId);
+        Optional<LeadCapture> leadCaptureOptional = leadCaptureRepository.findById(leadId);
+
+        // get logged in user
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        Optional<User> loggedInUser = userService.getByName(username);
 
         if (leadOptional.isPresent()) {
             Lead lead = leadOptional.get();
@@ -144,6 +168,22 @@ public class PipelineService {
             if (isValidNextTransition(currentStage, nextStage)) {
                 lead.setStage(nextStage);
                 leadRepo.save(lead);
+
+                // create an activity log for this
+                ActivityLog activityLog = new ActivityLog();
+                activityLog.setLogDate(new Date());
+
+                if (leadCaptureOptional.isPresent()) {
+                    activityLog.setLead(leadCaptureOptional.get());
+                }
+
+                if (loggedInUser.isPresent()) {
+                    activityLog.setUser(loggedInUser.get());
+                    activityLog
+                            .setDetails("Lead moved from " + currentStage + " to " + nextStage + " by "
+                                    + loggedInUser.get().getName());
+                }
+                activityLogRepository.save(activityLog);
                 return lead;
             } else {
                 throw new InvalidStateException("Invalid state transition.");
@@ -155,6 +195,12 @@ public class PipelineService {
 
     public Lead previousStageChange(Long leadId) {
         Optional<Lead> leadOptional = leadRepo.findById(leadId);
+        Optional<LeadCapture> leadCaptureOptional = leadCaptureRepository.findById(leadId);
+
+        // get logged in user
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        Optional<User> loggedInUser = userService.getByName(username);
 
         if (leadOptional.isPresent()) {
             Lead lead = leadOptional.get();
@@ -166,6 +212,22 @@ public class PipelineService {
             if (isValidPrevTransition(currentStage, previousStage)) {
                 lead.setStage(previousStage);
                 leadRepo.save(lead);
+
+                // create an activity log for this
+                ActivityLog activityLog = new ActivityLog();
+                activityLog.setLogDate(new Date());
+
+                if (leadCaptureOptional.isPresent()) {
+                    activityLog.setLead(leadCaptureOptional.get());
+                }
+
+                if (loggedInUser.isPresent()) {
+                    activityLog.setUser(loggedInUser.get());
+                    activityLog
+                            .setDetails("Lead moved from " + currentStage + " to " + previousStage + " by "
+                                    + loggedInUser.get().getName());
+                }
+                activityLogRepository.save(activityLog);
                 return lead;
             } else {
                 throw new InvalidStateException("Invalid state transition.");
@@ -203,6 +265,22 @@ public class PipelineService {
         } else {
             throw new EntityNotFoundException("Lead not found.");
         }
+    }
+
+    public Lead closedWONStageChange(Long leadId) {
+        Optional<Lead> leadOptional = leadRepo.findById(leadId);
+
+        if (leadOptional.isEmpty()) {
+            throw new LeadNotFoundException("Lead not found for ID: " + leadId);
+        }
+
+        Lead lead = leadOptional.get();
+
+        lead.setStage(LeadStage.CLOSED_WON);
+
+        leadRepo.save(lead);
+
+        return lead;
     }
 
     // search lead by company name

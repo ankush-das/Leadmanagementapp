@@ -27,7 +27,6 @@ public class ActivityLog {
     @NotBlank
     private String details;
 
-    // Many-to-One relationship with User
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
